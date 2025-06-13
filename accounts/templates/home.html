@@ -1,13 +1,9 @@
 {% extends 'base.html' %}
 
-{% block title %}Home{% endblock %}
-
-{% block header %}
-    {{ block.super }}
-{% endblock %}
+{% block title %}Home - Playground{% endblock %}
 
 {% block content %}
-    <main class="container mb-5">
+<main class="container mb-5">
     <!-- Hero Section -->
     <div class="row justify-content-center text-center mb-5">
         <div class="col-lg-8">
@@ -57,12 +53,18 @@
             </div>
         </div>
     </div>
+
+    <!-- CTA Section -->
+    <div class="row justify-content-center mt-5">
+        <div class="col-lg-6 text-center">
+            <h3>Pronto a iniziare?</h3>
+            <p class="mb-3">Registrati per salvare i tuoi punteggi e sfidare altri giocatori!</p>
+            <a href="/registration/" class="btn btn-primary btn-lg me-2">Registrati</a>
+            <a href="/login/" class="btn btn-outline-primary btn-lg">Accedi</a>
+        </div>
+    </div>
 </main>
 
 <!-- Bootstrap Icons -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
-{% endblock %}
-
-{% block footer %}
-    {{ block.super }}
 {% endblock %}
