@@ -44,7 +44,7 @@
     </div>
 
     {% if game.is_over %}
-        <form action="{% url 'new_game' %}" method="post" class="mt-3">
+        <form action="{% url 'new_game_player' %}" method="post" class="mt-3">
             {% csrf_token %}
             <button type="submit" class="btn btn-primary btn-lg">Rigioca</button>
         </form>
