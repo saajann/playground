@@ -7,10 +7,21 @@
 {% endblock %}
 
 {% block content %}
-    <p>TRIS</p>
-    <p>press to start a new game bla bla bla</p>
+    <div class="d-flex justify-content-start mb-3 ms-3">
+        <a href="/play/" class="btn btn-outline-secondary">&larr; Back</a>
+    </div>
+
+    <div class="text-center">
+        <h1 class="mb-4">Tris!</h1>
+
+        <form action="{% url 'new_game' %}" method="post">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-primary btn-lg">Play a new game</button>
+        </form>
+    </div>
 {% endblock %}
 
 {% block footer %}
     {{ block.super }}
 {% endblock %}
+
