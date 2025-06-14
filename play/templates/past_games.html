@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% block title %}Tris{% endblock %}
+
+{% block header %}
+    {{ block.super }}
+{% endblock %}
+
+{% block content %}
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col-12"></div>
+                <h2 class="mb-4">Tris Games</h2>
+                {% for game in tris_past_games %}
+                    <div class="card mb-3 shadow-sm">
+                        <div class="card-header d-flex justify-content-between align-items-center">
+                            <h5 class="mb-0">Game #{{ game.id }}</h5>
+                            <span class="badge {% if game.is_over %}badge-success{% else %}badge-warning{% endif %}">
+                                {% if game.is_over %}Finished{% else %}In Progress{% endif %}
+                            </span>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <p class="mb-1"><strong>Player:</strong> {{ game.user.username }}</p>
+                                    <p class="mb-1"><strong>Winner:</strong> {{ game.winner|default:"None" }}</p>
+                                    <p class="mb-0"><strong>Created:</strong> {{ game.created_at|date:"M d, Y H:i" }}</p>
+                                </div>
+                                <div class="col-md-4 d-flex align-items-center justify-content-end">
+                                    <a href="/tris/game/finished/{{ game.id }}" class="btn btn-primary">View Game</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    
+    <div class="game2-games">
+        <h3>Game 2</h3>
+        <!-- Game 2 content will go here -->
+    </div>
+    
+    <div class="game3-games">
+        <h3>Game 3</h3>
+        <!-- Game 3 content will go here -->
+    </div>
+{% endblock %}
+
+{% block footer %}
+    {{ block.super }}
+{% endblock %}

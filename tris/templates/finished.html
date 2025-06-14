@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+
+{% block title %}Tris{% endblock %}
+
+{% block header %}
+    {{ block.super }}
+{% endblock %}
+
+{% block content %}
+    <div class="container mt-4">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Game Details</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="row mb-3">
+                            <div class="col-sm-3"><strong>Player:</strong></div>
+                            <div class="col-sm-9">{{ game.user.username }}</div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-sm-3"><strong>Status:</strong></div>
+                            <div class="col-sm-9">
+                                {% if game.is_over %}
+                                    <span class="badge bg-danger">Game Over</span>
+                                {% else %}
+                                    <span class="badge bg-success">In Progress</span>
+                                {% endif %}
+                            </div>
+                        </div>
+                        {% if game.winner %}
+                        <div class="row mb-3">
+                            <div class="col-sm-3"><strong>Winner:</strong></div>
+                            <div class="col-sm-9">
+                                <span class="badge bg-primary">{{ game.winner }}</span>
+                            </div>
+                        </div>
+                        {% endif %}
+                        <div class="row mb-3">
+                            <div class="col-sm-3"><strong>Created:</strong></div>
+                            <div class="col-sm-9">{{ game.created_at|date:"M d, Y H:i" }}</div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-sm-3"><strong>Game Board:</strong></div>
+                            <div class="col-sm-9">
+                                <table class="table table-bordered text-center" style="width: 150px;">
+                                    <tr>
+                                        <td style="width: 50px; height: 50px;">{{ game.square_1_1|default:"&nbsp;" }}</td>
+                                        <td style="width: 50px; height: 50px;">{{ game.square_1_2|default:"&nbsp;" }}</td>
+                                        <td style="width: 50px; height: 50px;">{{ game.square_1_3|default:"&nbsp;" }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width: 50px; height: 50px;">{{ game.square_2_1|default:"&nbsp;" }}</td>
+                                        <td style="width: 50px; height: 50px;">{{ game.square_2_2|default:"&nbsp;" }}</td>
+                                        <td style="width: 50px; height: 50px;">{{ game.square_2_3|default:"&nbsp;" }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width: 50px; height: 50px;">{{ game.square_3_1|default:"&nbsp;" }}</td>
+                                        <td style="width: 50px; height: 50px;">{{ game.square_3_2|default:"&nbsp;" }}</td>
+                                        <td style="width: 50px; height: 50px;">{{ game.square_3_3|default:"&nbsp;" }}</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block footer %}
+    {{ block.super }}
+{% endblock %}
