@@ -9,7 +9,7 @@ import random
 # Create your views here.
 
 @login_required
-def number(request):
+def guess(request):
     games = GuessGame.objects.filter(user=request.user, is_over=True)
     attempts = sum(game.attempts for game in games)
     wins = games.count()
@@ -54,4 +54,4 @@ def play_game(request, game_id):
         'game': game,
         'result': result,
     }
-    return render(request, 'game.html', context)
+    return render(request, 'game-guess.html', context)

@@ -4,6 +4,7 @@ from django.template import loader
 from django.contrib.auth.decorators import login_required
 from tris.models import TrisGame
 from guess.models import GuessGame
+from hangman.models import HangmanGame
 from django.contrib.auth.models import User
 
 # Create your views here.
@@ -30,11 +31,14 @@ def leaderboard(request):
     users = User.objects.all()
     tris_leaderboard = []
     guess_leaderboard = []
+    hangman_leaderboard = []
     for user in users:
         tris_wins = TrisGame.objects.filter(user=user, winner='X').count()
         tris_leaderboard.append({'username': user.username, 'wins': tris_wins})
         guess_wins = GuessGame.objects.filter(user=user, is_over=True).count()
         guess_leaderboard.append({'username': user.username, 'wins': guess_wins})
+        hangman_wins = HangmanGame.objects.filter(user=user, is_over=True, won=True).count()
+        hangman_leaderboard.append({'username': user.username, 'wins': hangman_wins})
 
     
     tris_leaderboard.sort(key=lambda x: x['wins'], reverse=True)
@@ -44,6 +48,7 @@ def leaderboard(request):
     context = {
         'tris_leaderboard': tris_leaderboard,
         'guess_leaderboard': guess_leaderboard,
+        'hangman_leaderboard': hangman_leaderboard
     }
     return HttpResponse(template.render(context,request))
 

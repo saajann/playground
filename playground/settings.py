@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'play',
     'tris',
     'guess',
+    'hangman',
     'accounts',
 ]
 
