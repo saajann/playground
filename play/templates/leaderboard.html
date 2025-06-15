@@ -7,7 +7,57 @@
 {% endblock %}
 
 {% block content %}
-    <p>leaderboard</p>
+    <div class="container mt-4"></div>
+        <h2 class="text-center mb-4">Leaderboard</h2>
+        
+        <div class="row">
+            <div class="col-md-4 mb-4">
+                <div class="card ms-md-3">
+                    <div class="card-header">
+                        <h4 class="text-center">Tris</h4>
+                    </div>
+                    <div class="card-body">
+                        <ol class="list-group list-group-numbered">
+                            {% for user in tris_leaderboard %}
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    {{ user.username }}
+                                    <span class="badge bg-primary rounded-pill">{{ user.wins }}</span>
+                                </li>
+                            {% empty %}
+                                <li class="list-group-item">No players yet</li>
+                            {% endfor %}
+                        </ol>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="text-center">Game 2</h4>
+                    </div>
+                    <div class="card-body">
+                        <ol class="list-group list-group-numbered">
+                            <li class="list-group-item">Coming soon...</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-4 mb-4">
+                <div class="card me-md-3">
+                    <div class="card-header">
+                        <h4 class="text-center">Game 3</h4>
+                    </div>
+                    <div class="card-body">
+                        <ol class="list-group list-group-numbered">
+                            <li class="list-group-item">Coming soon...</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}
 
 {% block footer %}
