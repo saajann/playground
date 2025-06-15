@@ -26,9 +26,6 @@ def finished(request, id):
     
     game = get_object_or_404(TrisGame, id=id, user=request.user)
     
-    if not game.is_over:
-        return HttpResponse("Game is not finished yet.")
-    
     template = loader.get_template('finished.html')
     context = {
         'game': game

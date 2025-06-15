@@ -20,17 +20,17 @@
             {% if user.is_authenticated %}
             <div class="d-flex align-items-center">
                 <nav class="me-3">
-                    <a href="/" class="btn btn-outline-primary me-2">Home</a>
-                    <a href="/play/leaderboard/" class="btn btn-outline-primary me-2">Leaderboard</a>
-                    <a href="/play/past-games/" class="btn btn-outline-primary me-2">Past Games</a>
-                    <a href="/play/stats/" class="btn btn-outline-primary me-2">Stats</a>
+                    <a href="/" class="btn btn-outline-secondary me-2">Home</a>
+                    <a href="/play/leaderboard/" class="btn btn-outline-secondary me-2">Leaderboard</a>
+                    <a href="/play/past-games/" class="btn btn-outline-secondary me-2">Past Games</a>
+                    <a href="/play/stats/" class="btn btn-outline-secondary me-2">Stats</a>
                 </nav>
                 <a href="/logout/" class="btn btn-outline-danger">Logout</a>
             </div>
             {% else %}
             <div>
-                <a href="/login/" class="btn btn-outline-primary me-2">Login</a>
-                <a href="/registration/" class="btn btn-primary">Register</a>
+                <a href="/login/" class="btn btn-outline-info me-2">Login</a>
+                <a href="/registration/" class="btn btn-info">Register</a>
             </div>
             {% endif %}
         </div>
@@ -38,9 +38,7 @@
     {% endblock %}
 
     {% block content %}
-    <main class="container mb-5">
-        <!-- Contenuto specifico della pagina -->
-    </main>
+    
     {% endblock %}
 
     {% block footer %}

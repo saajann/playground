@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+
+{% block title %}Guess{% endblock %}
+
+{% block header %}
+    {{ block.super }}
+{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-start mb-3 ms-3">
+    <a href="/play/" class="btn btn-outline-secondary">
+        <i class="bi bi-arrow-left"></i> Back
+    </a>
+</div>
+
+<div class="text-center mb-5">
+    <h1 class="mb-4">Guess</h1>
+
+    {% if game.is_over %}
+        <div class="alert alert-danger" role="alert">
+            Game over
+        </div>
+    {% else %}
+        {% if result == 1 %}
+            <div class="alert alert-info" role="alert">
+                The number is lower.
+            </div>
+        {% elif result == 0 %}
+            <div class="alert alert-info" role="alert">
+                The number is higher.
+            </div>
+        {% endif %}
+    {% endif %}
+
+    <form action="{% url 'new_game' %}" method="post" class="d-inline-block">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-success btn-lg d-flex align-items-center px-4">
+            <i class="bi bi-people-fill me-2"></i>New game
+        </button>
+    </form>
+</div>
+
+<div class="container">
+    <div class="row text-center">
+        <div class="col-md-6">
+            <h5>Wins</h5>
+            <p class="display-6">{{ wins }}</p>
+        </div>
+        <div class="col-md-6">
+            <h5>Attempts</h5>
+            <p class="display-6">{{ attempts }}</p>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block footer %}
+    {{ block.super }}
+{% endblock %}
+

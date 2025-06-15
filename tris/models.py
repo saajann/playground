@@ -18,18 +18,6 @@ class TrisGame(models.Model):
     is_over = models.BooleanField(default=False)
     winner = models.CharField(max_length=10, choices=[('X', 'X'), ('O', 'O'), ('Draw', 'Draw')], blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
-
-    def get_board(self):
-        return json.loads(self.board)
-
-    def set_board(self, board_data):
-        self.board = json.dumps(board_data)
-
-    def current_turn(self):
-        board = self.get_board()
-        x = sum(row.count("X") for row in board)
-        o = sum(row.count("O") for row in board)
-        return "X" if x <= o else "O"
     
     def __str__(self):
         return self.user.username

@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from django.template import loader
 from django.contrib.auth.decorators import login_required
 from tris.models import TrisGame
-from django.db.models import Count, Q
+from guess.models import GuessGame
 from django.contrib.auth.models import User
 
 # Create your views here.
@@ -29,15 +29,21 @@ def past_games(request):
 def leaderboard(request):
     users = User.objects.all()
     tris_leaderboard = []
+    guess_leaderboard = []
     for user in users:
-        wins = TrisGame.objects.filter(user=user, winner='X').count()
-        tris_leaderboard.append({'username': user.username, 'wins': wins})
+        tris_wins = TrisGame.objects.filter(user=user, winner='X').count()
+        tris_leaderboard.append({'username': user.username, 'wins': tris_wins})
+        guess_wins = GuessGame.objects.filter(user=user, is_over=True).count()
+        guess_leaderboard.append({'username': user.username, 'wins': guess_wins})
+
     
     tris_leaderboard.sort(key=lambda x: x['wins'], reverse=True)
+    guess_leaderboard.sort(key=lambda x: x['wins'], reverse=True)
     
     template = loader.get_template('leaderboard.html')
     context = {
-        'tris_leaderboard': tris_leaderboard
+        'tris_leaderboard': tris_leaderboard,
+        'guess_leaderboard': guess_leaderboard,
     }
     return HttpResponse(template.render(context,request))
 
