@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+
+{% block title %}Hangman{% endblock %}
+
+{% block header %}
+    {{ block.super }}
+{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-start mb-3 ms-3">
+    <a href="/hangman/" class="btn btn-outline-secondary">&larr; Back</a>
+</div>
+<div class="container py-4">
+
+
+    <!-- Page title -->
+    <div class="text-center mb-4">
+        <h1 class="fw-bold">Hangman</h1>
+        <p class="text-muted">Add words to use in the game</p>
+    </div>
+
+    <!-- Add word form -->
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <form method="post" class="card shadow-sm p-4">
+                {% csrf_token %}
+                <div class="mb-3">
+                    <label for="id_text" class="form-label">New Word</label>
+                    <input type="text" name="text" class="form-control" id="id_text" placeholder="Enter a word" required>
+                </div>
+                <div class="d-grid">
+                    <button type="submit" class="btn btn-warning btn-lg">
+                        <i class="bi bi-plus-lg me-2"></i>Add Word
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Word list -->
+    {% if words %}
+    <div class="row justify-content-center mt-5">
+        <div class="col-md-6">
+            <div class="card shadow-sm">
+                <div class="card-header bg-warning text-white">
+                    <h5 class="mb-0">Word List</h5>
+                </div>
+                <ul class="list-group list-group-flush">
+                    {% for word in words %}
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <span class="fw-semibold text-capitalize">{{ word.text }}</span>
+                        <a href="/hangman/delete/{{ word.id }}/" class="btn btn-sm btn-outline-danger" title="Remove">
+                            <i class="bi bi-trash me-1"></i> Remove
+                        </a>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+    {% else %}
+    <div class="alert alert-info text-center mt-5 col-md-6 mx-auto">No words added yet.</div>
+    {% endif %}
+
+</div>
+{% endblock %}
+
+{% block footer %}
+    {{ block.super }}
+{% endblock %}

@@ -1,4 +1,5 @@
 from django import forms
+from .models import HangmanWord
 
 class LetterForm(forms.Form):
     letter = forms.CharField(max_length=1, required=True)
@@ -8,3 +9,9 @@ class LetterForm(forms.Form):
         if not letter.isalpha():
             raise forms.ValidationError("Inserisci solo lettere alfabetiche.")
         return letter
+    
+class AddWordForm(forms.ModelForm):
+    text = forms.CharField(required=True)
+    class Meta:
+        model = HangmanWord
+        fields = ['text']

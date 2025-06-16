@@ -16,7 +16,7 @@
 <div class="text-center mb-5">
     <h1 class="mb-4">Guess</h1>
 
-    <form action="{% url 'new_game' %}" method="post" class="d-inline-block">
+    <form action="{% url 'new_game_guess' %}" method="post" class="d-inline-block">
         {% csrf_token %}
         <button type="submit" class="btn btn-success btn-lg d-flex align-items-center px-4">
             <i class="bi bi-people-fill me-2"></i>New game

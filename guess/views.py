@@ -27,7 +27,7 @@ def finished(request):
 def new_game(request):
     number = random.randint(1, 100)
     game = GuessGame.objects.create(number=number, user=request.user)
-    return redirect('play_game', game_id=game.id)
+    return redirect('play_game_guess', game_id=game.id)
 
 @login_required
 def play_game(request, game_id):

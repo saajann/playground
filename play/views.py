@@ -43,6 +43,7 @@ def leaderboard(request):
     
     tris_leaderboard.sort(key=lambda x: x['wins'], reverse=True)
     guess_leaderboard.sort(key=lambda x: x['wins'], reverse=True)
+    hangman_leaderboard.sort(key=lambda x: x['wins'], reverse=True)
     
     template = loader.get_template('leaderboard.html')
     context = {
@@ -53,8 +54,8 @@ def leaderboard(request):
     return HttpResponse(template.render(context,request))
 
 @login_required
-def stats(request):
-    template = loader.get_template('stats.html')
+def profile(request):
+    template = loader.get_template('profile.html')
     context = {
         
     }

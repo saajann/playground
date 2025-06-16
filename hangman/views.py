@@ -4,17 +4,19 @@ from .models import HangmanGame, HangmanWord
 import random
 from django.template import loader
 from django.http import HttpResponse
-from .forms import LetterForm
+from .forms import LetterForm, AddWordForm
 
 # Create your views here.
 
 @login_required
 def hangman(request):
     games = HangmanGame.objects.filter(user=request.user, is_over=True)
-    wins = games.count()
+    wins = games.filter(won=True).count()
+    losses = games.filter(won=False).count()
     template = loader.get_template('hangman.html')
     context = {
         'wins': wins,
+        'losses': losses
     }
     return HttpResponse(template.render(context, request))
 
@@ -25,7 +27,7 @@ def finished(request):
 def new_game(request):
     word = random.choice(HangmanWord.objects.all())
     game = HangmanGame.objects.create(user=request.user, word=word)
-    return redirect('play_game', game_id=game.id)
+    return redirect('play_game_hangman', game_id=game.id)
 
 @login_required
 def play_game(request, game_id):
@@ -57,3 +59,27 @@ def play_game(request, game_id):
         'letters': 'abcdefghijklmnopqrstuvwxyz',
         'form': form
     })
+
+@login_required
+def add_word(request):
+    words = HangmanWord.objects.all()
+    if request.method == 'POST':
+        form = AddWordForm(request.POST)
+        if form.is_valid():
+            word = form.save(commit=False)
+            word.save()
+            return redirect('/hangman/words/')
+    else:
+        form = AddWordForm()
+    template = loader.get_template('words.html')
+    context = {
+        'form': form,
+        'words': words
+    }
+    return HttpResponse(template.render(context, request))
+
+@login_required
+def delete_word(request, id):
+    word = get_object_or_404(HangmanWord, id=id)
+    word.delete()
+    return redirect('/hangman/words/')

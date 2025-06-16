@@ -7,16 +7,19 @@
 {% endblock %}
 
 {% block content %}
-<div class="d-flex justify-content-start mb-3 ms-3">
+<div class="d-flex justify-content-between mb-3 ms-3 me-3">
     <a href="/play/" class="btn btn-outline-secondary">
         <i class="bi bi-arrow-left"></i> Back
+    </a>
+    <a href="/hangman/words/" class="btn btn-warning d-flex align-items-center">
+        <i class="bi bi-plus-lg me-2"></i> Add word
     </a>
 </div>
 
 <div class="text-center mb-5">
-    <h1 class="mb-4">Guess</h1>
+    <h1 class="mb-4">Hangman</h1>
 
-    <form action="{% url 'new_game' %}" method="post" class="d-inline-block">
+    <form action="{% url 'new_game_hangman' %}" method="post" class="d-inline-block">
         {% csrf_token %}
         <button type="submit" class="btn btn-warning btn-lg d-flex align-items-center px-4">
             <i class="bi bi-people-fill me-2"></i>New game
@@ -31,8 +34,8 @@
             <p class="display-6">{{ wins }}</p>
         </div>
         <div class="col-md-6">
-            <h5>Attempts</h5>
-            <p class="display-6">temp</p>
+            <h5>Losses</h5>
+            <p class="display-6">{{ losses }}</p>
         </div>
     </div>
 </div>

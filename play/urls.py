@@ -5,5 +5,5 @@ urlpatterns = [
     path('', views.play),
     path('past-games/', views.past_games),
     path('leaderboard/', views.leaderboard),
-    path('stats/', views.stats),
+    path('profile/', views.profile),
 ]
