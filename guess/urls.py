@@ -3,7 +3,7 @@ from . import views
 
 urlpatterns = [
     path('', views.guess),
-    path('game/finished/<int:id>', views.finished),
+    path('game/finished/<int:id>/', views.guess_finished),
     path('new/', views.new_game, name='new_game_guess'),
     path('game/<int:game_id>/', views.play_game, name='play_game_guess'),
 ]

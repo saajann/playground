@@ -4,7 +4,12 @@ from .models import HangmanGame, HangmanWord
 import random
 from django.template import loader
 from django.http import HttpResponse
-from .forms import LetterForm, AddWordForm, EditWordForm
+from .forms import LetterForm, AddWordForm, EditWordForm, CSVUploadForm
+
+import csv
+from io import TextIOWrapper
+from django.contrib import messages
+import re
 
 # Create your views here.
 
@@ -20,8 +25,16 @@ def hangman(request):
     }
     return HttpResponse(template.render(context, request))
 
-def finished(request):
-    pass
+@login_required
+def hangman_finished(request, id):
+    
+    game = get_object_or_404(HangmanGame, id=id, user=request.user)
+    
+    template = loader.get_template('hangman_finished.html')
+    context = {
+        'game': game
+    }
+    return HttpResponse(template.render(context, request))
 
 @login_required
 def new_game(request):
@@ -95,3 +108,29 @@ def edit_word(request, id):
     else:
         form = EditWordForm(instance=word)
     return render(request, 'words_edit.html', {'form': form, 'word': word})
+
+@login_required
+def delete_words(request):
+    word_ids = request.POST.getlist("word_ids")
+    if word_ids:
+        HangmanWord.objects.filter(id__in=word_ids).delete()
+    return redirect("/hangman/words/")
+
+@login_required
+def upload_csv(request):
+    if request.method == 'POST':
+        form = CSVUploadForm(request.POST, request.FILES)
+        if form.is_valid():
+            file = form.cleaned_data['file']
+            decoded_file = TextIOWrapper(file, encoding='utf-8')
+            reader = csv.reader(decoded_file)
+            for row in reader:
+                if row:
+                    word = ''.join([c for c in row[0].strip() if c.isalpha()])
+                    if word:
+                        HangmanWord.objects.get_or_create(text=word.lower())
+            messages.success(request, 'File uploaded!')
+            return redirect('upload_csv')
+    else:
+        form = CSVUploadForm()
+    return render(request, 'upload.html', {'form': form})

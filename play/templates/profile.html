@@ -2,14 +2,73 @@
 
 {% block title %}Profile{% endblock %}
 
-{% block header %}
-    {{ block.super }}
-{% endblock %}
-
 {% block content %}
-    <p>profile</p>
-{% endblock %}
+<div class="container mt-4">
+    <h2>{{ user.username }}'s Profile</h2>
 
-{% block footer %}
-    {{ block.super }}
+    <div class="card mb-4">
+        <div class="card-header">
+            General Statistics
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-4">
+                    <h5>Tris</h5>
+                    <ul class="list-group">
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            Games played
+                            <span class="badge bg-primary rounded-pill">{{ tris_total }}</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            Games won
+                            <span class="badge bg-primary rounded-pill">{{ tris_won }}</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="col-md-4">
+                    <h5>Guess Game</h5>
+                    <ul class="list-group">
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            Games played
+                            <span class="badge bg-success rounded-pill">{{ guess_total }}</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            Games won
+                            <span class="badge bg-success rounded-pill">{{ guess_completed }}</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="col-md-4">
+                    <h5>Hangman</h5>
+                    <ul class="list-group">
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            Games played
+                            <span class="badge bg-warning rounded-pill">{{ hangman_total }}</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            Games won
+                            <span class="badge bg-warning rounded-pill">{{ hangman_won }}</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <hr>
+
+            <div class="row">
+                <!-- Likes -->
+                <div class="col-md-6">
+                    <h5>Likes Sent</h5>
+                    <p><span class="badge bg-info">{{ likes_sent }}</span></p>
+                </div>
+                <div class="col-md-6">
+                    <h5>Likes Received</h5>
+                    <p><span class="badge bg-info">{{ likes_received }}</span></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}

@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% block title %}Guess Game{% endblock %}
+
+{% block header %}
+    {{ block.super }}
+{% endblock %}
+
+{% block content %}
+    <div class="container mt-4">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Game Details</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="row mb-3">
+                            <div class="col-sm-3"><strong>Player:</strong></div>
+                            <div class="col-sm-9">{{ game.user.username }}</div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-sm-3"><strong>Status:</strong></div>
+                            <div class="col-sm-9">
+                                {% if game.is_over %}
+                                    <span class="badge bg-danger">Game Over</span>
+                                {% else %}
+                                    <span class="badge bg-success">In Progress</span>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-sm-3"><strong>Number to Guess:</strong></div>
+                            <div class="col-sm-9">{{ game.number }}</div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-sm-3"><strong>Attempts:</strong></div>
+                            <div class="col-sm-9">{{ game.attempts }}</div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-sm-3"><strong>Created:</strong></div>
+                            <div class="col-sm-9">{{ game.created_at|date:"M d, Y H:i" }}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block footer %}
+    {{ block.super }}
+{% endblock %}

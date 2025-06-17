@@ -1,56 +1,134 @@
 {% extends 'base.html' %}
 
-{% block title %}Tris{% endblock %}
-
-{% block header %}
-    {{ block.super }}
-{% endblock %}
+{% block title %}Past games{% endblock %}
 
 {% block content %}
     <div class="d-flex justify-content-start mb-3 ms-3">
         <a href="/play/" class="btn btn-outline-secondary">&larr; Back</a>
     </div>
     <div class="container mt-4">
-        <div class="row">
-            <div class="col-12"></div>
+        
+        <!-- TRIS GAMES -->
+        <div class="row mb-5">
+            <div class="col-12">
                 <h2 class="mb-4">Tris Games</h2>
-                {% for game in tris_past_games %}
-                    <div class="card mb-3 shadow-sm">
-                        <div class="card-header d-flex justify-content-between align-items-center">
-                            <h5 class="mb-0">Game #{{ game.id }}</h5>
-                            <span class="badge {% if game.is_over %}badge-success{% else %}badge-warning{% endif %}">
-                                {% if game.is_over %}Finished{% else %}In Progress{% endif %}
-                            </span>
-                        </div>
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col-md-8">
-                                    <p class="mb-1"><strong>Player:</strong> {{ game.user.username }}</p>
-                                    <p class="mb-1"><strong>Winner:</strong> {{ game.winner|default:"None" }}</p>
-                                    <p class="mb-0"><strong>Created:</strong> {{ game.created_at|date:"M d, Y H:i" }}</p>
-                                </div>
-                                <div class="col-md-4 d-flex align-items-center justify-content-end">
-                                    <a href="/tris/game/finished/{{ game.id }}" class="btn btn-primary">View Game</a>
+                {% if tris_past_games %}
+                    {% for game in tris_past_games %}
+                        <div class="card mb-3 shadow-sm">
+                            <div class="card-header d-flex justify-content-between align-items-center">
+                                <h5 class="mb-0">Game #{{ game.id }}</h5>
+                                <span class="badge {% if game.is_over %}badge-success{% else %}badge-warning{% endif %}">
+                                    {% if game.is_over %}Finished{% else %}In Progress{% endif %}
+                                </span>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-8">
+                                        <p class="mb-1"><strong>Player:</strong> {{ game.user.username }}</p>
+                                        <p class="mb-1"><strong>Winner:</strong> {{ game.winner|default:"None" }}</p>
+                                        <p class="mb-0"><strong>Created:</strong> {{ game.created_at|date:"M d, Y H:i" }}</p>
+                                    </div>
+                                    <div class="col-md-4 d-flex align-items-center justify-content-end">
+                                        <a href="/tris/game/finished/{{ game.id }}/" class="btn btn-primary">View Game</a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
+                    {% endfor %}
+                {% else %}
+                    <div class="alert alert-info">
+                        <i class="fas fa-info-circle"></i> No Tris games found.
                     </div>
-                {% endfor %}
+                {% endif %}
             </div>
         </div>
-    </div>
-    
-    <div class="game2-games">
-        <h3>Game 2</h3>
-        <!-- Game 2 content will go here -->
-    </div>
-    
-    <div class="game3-games">
-        <h3>Game 3</h3>
-        <!-- Game 3 content will go here -->
-    </div>
-{% endblock %}
+        
+        <!-- GUESS GAMES -->
+        <div class="row mb-5">
+            <div class="col-12">
+                <h2 class="mb-4">Guess Number Games</h2>
+                {% if guess_past_games %}
+                    {% for game in guess_past_games %}
+                        <div class="card mb-3 shadow-sm">
+                            <div class="card-header d-flex justify-content-between align-items-center">
+                                <h5 class="mb-0">Game #{{ game.id }}</h5>
+                                <span class="badge {% if game.is_over %}badge-success{% else %}badge-warning{% endif %}">
+                                    {% if game.is_over %}Finished{% else %}In Progress{% endif %}
+                                </span>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-8">
+                                        <p class="mb-1"><strong>Player:</strong> {{ game.user.username }}</p>
+                                        {% if game.is_over %}
+                                            <p class="mb-1"><strong>Number:</strong> {{ game.number }}</p>
+                                        {% else %}
+                                            <p class="mb-1"><strong>Number:</strong> Hidden</p>
+                                        {% endif %}
+                                        <p class="mb-1"><strong>Attempts:</strong> {{ game.attempts }}</p>
+                                        <p class="mb-0"><strong>Created:</strong> {{ game.created_at|date:"M d, Y H:i" }}</p>
+                                    </div>
+                                    <div class="col-md-4 d-flex align-items-center justify-content-end">
+                                        <a href="/guess/game/finished/{{ game.id }}/" class="btn btn-success">View Game</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <div class="alert alert-info">
+                        <i class="fas fa-info-circle"></i> No Guess Number games found.
+                    </div>
+                {% endif %}
+            </div>
+        </div>
 
-{% block footer %}
-    {{ block.super }}
+        <!-- HANGMAN GAMES -->
+        <div class="row mb-5">
+            <div class="col-12">
+                <h2 class="mb-4">Hangman Games</h2>
+                {% if hangman_past_games %}
+                    {% for game in hangman_past_games %}
+                        <div class="card mb-3 shadow-sm">
+                            <div class="card-header d-flex justify-content-between align-items-center">
+                                <h5 class="mb-0">Game #{{ game.id }}</h5>
+                                <span class="badge {% if game.is_over %}{% if game.won %}badge-success{% else %}badge-danger{% endif %}{% else %}badge-warning{% endif %}">
+                                    {% if game.is_over %}
+                                        {% if game.won %}Won{% else %}Lost{% endif %}
+                                    {% else %}
+                                        In Progress
+                                    {% endif %}
+                                </span>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-8">
+                                        <p class="mb-1"><strong>Player:</strong> {{ game.user.username }}</p>
+                                        <p class="mb-1"><strong>Word:</strong> {{ game.word.text|upper }}</p>
+                                        <p class="mb-1"><strong>Guessed Letters:</strong> 
+                                            {% if game.guessed_letters %}
+                                                {{ game.guessed_letters|upper }}
+                                            {% else %}
+                                                None
+                                            {% endif %}
+                                        </p>
+                                        <p class="mb-0"><strong>Remaining Attempts:</strong> {{ game.remaining_attempts }}</p>
+                                    </div>
+                                    <div class="col-md-4 d-flex align-items-center justify-content-end">
+                                        <a href="/hangman/game/finished/{{ game.id }}/" class="btn btn-warning">View Game</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <div class="alert alert-info">
+                        <i class="fas fa-info-circle"></i> No Hangman games found.
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+        
+        
+    </div>
 {% endblock %}

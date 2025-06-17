@@ -16,3 +16,4 @@ class HangmanGame(models.Model):
     remaining_attempts = models.IntegerField(default=6)
     is_over = models.BooleanField(default=False)
     won = models.BooleanField(null=True)
+    created_at = models.DateTimeField(auto_now_add=True)

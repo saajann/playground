@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block title %}Upload Words{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-start mb-3 ms-3">
+    <a href="/hangman/words/" class="btn btn-outline-secondary">&larr; Back</a>
+</div>
+<div class="container py-4">
+    <div class="text-center mb-4">
+        <h1 class="fw-bold">Upload CSV</h1>
+        <p class="text-muted">Upload a CSV file containing one word per row</p>
+    </div>
+
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <form method="post" enctype="multipart/form-data" class="card shadow-sm p-4">
+                {% csrf_token %}
+                <div class="mb-3">
+                    <label for="{{ form.file.id_for_label }}" class="form-label">Select CSV File</label>
+                    <input type="file" name="file" id="{{ form.file.id_for_label }}" class="form-control" accept=".csv" required>
+                    {% if form.file.errors %}
+                        <div class="text-danger mt-2">
+                            {{ form.file.errors }}
+                        </div>
+                    {% endif %}
+                </div>
+
+                <div class="d-grid">
+                    <button type="submit" class="btn btn-warning btn-lg">
+                        <i class="bi bi-upload me-2"></i>Upload Words
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

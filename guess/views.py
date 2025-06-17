@@ -20,8 +20,16 @@ def guess(request):
     }
     return HttpResponse(template.render(context, request))
 
-def finished(request):
-    pass
+@login_required
+def guess_finished(request, id):
+    
+    game = get_object_or_404(GuessGame, id=id, user=request.user)
+    
+    template = loader.get_template('guess_finished.html')
+    context = {
+        'game': game
+    }
+    return HttpResponse(template.render(context, request))
 
 @login_required
 def new_game(request):
@@ -54,4 +62,4 @@ def play_game(request, game_id):
         'game': game,
         'result': result,
     }
-    return render(request, 'game-guess.html', context)
+    return render(request, 'game_guess.html', context)

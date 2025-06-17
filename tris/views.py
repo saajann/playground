@@ -22,11 +22,11 @@ def tris(request):
     return HttpResponse(template.render(context,request)) 
 
 @login_required
-def finished(request, id):
+def tris_finished(request, id):
     
     game = get_object_or_404(TrisGame, id=id, user=request.user)
     
-    template = loader.get_template('finished.html')
+    template = loader.get_template('tris_finished.html')
     context = {
         'game': game
     }

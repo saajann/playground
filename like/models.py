@@ -3,7 +3,6 @@ from django.contrib.auth.models import User
 
 # Create your models here.
 
-
 class Like(models.Model):
     from_user = models.ForeignKey(User, related_name='likes_sent', on_delete=models.CASCADE)
     to_user = models.ForeignKey(User, related_name='likes_received', on_delete=models.CASCADE)

@@ -20,3 +20,6 @@ class EditWordForm(forms.ModelForm):
     class Meta:
         model = HangmanWord
         fields = ['text']
+
+class CSVUploadForm(forms.Form):
+    file = forms.FileField(label='Uploan CSV file')
