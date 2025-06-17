@@ -11,15 +11,11 @@
     <a href="/hangman/" class="btn btn-outline-secondary">&larr; Back</a>
 </div>
 <div class="container py-4">
-
-
-    <!-- Page title -->
     <div class="text-center mb-4">
         <h1 class="fw-bold">Hangman</h1>
         <p class="text-muted">Add words to use in the game</p>
     </div>
 
-    <!-- Add word form -->
     <div class="row justify-content-center">
         <div class="col-md-6">
             <form method="post" class="card shadow-sm p-4">
@@ -37,21 +33,25 @@
         </div>
     </div>
 
-    <!-- Word list -->
     {% if words %}
     <div class="row justify-content-center mt-5">
         <div class="col-md-6">
             <div class="card shadow-sm">
                 <div class="card-header bg-warning text-white">
-                    <h5 class="mb-0">Word List</h5>
+                    <h5 class="mb-0">Words List</h5>
                 </div>
                 <ul class="list-group list-group-flush">
                     {% for word in words %}
                     <li class="list-group-item d-flex justify-content-between align-items-center">
                         <span class="fw-semibold text-capitalize">{{ word.text }}</span>
-                        <a href="/hangman/delete/{{ word.id }}/" class="btn btn-sm btn-outline-danger" title="Remove">
-                            <i class="bi bi-trash me-1"></i> Remove
-                        </a>
+                        <div>
+                            <a href="/hangman/edit/{{ word.id }}/" class="btn btn-sm btn-outline-secondary" title="Edit">
+                                <i class="bi bi-pencil me-1"></i> Edit
+                            </a>
+                            <a href="/hangman/delete/{{ word.id }}/" class="btn btn-sm btn-outline-danger me-2" title="Remove">
+                                <i class="bi bi-trash me-1"></i> Remove
+                            </a>
+                        </div>
                     </li>
                     {% endfor %}
                 </ul>

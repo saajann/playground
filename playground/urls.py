@@ -23,5 +23,7 @@ urlpatterns = [
     path('tris/', include('tris.urls')),
     path('guess/', include('guess.urls')),
     path('hangman/', include('hangman.urls')),
-    path('', include('accounts.urls'))
+    path('', include('accounts.urls')),
+    path('like/', include('like.urls')),
+
 ]

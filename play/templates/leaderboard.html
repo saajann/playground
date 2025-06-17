@@ -10,6 +10,8 @@
     <div class="container mt-4 px-3">
         <h2 class="text-center mb-4">Leaderboard</h2>
         <div class="row gx-4 gy-4 justify-content-center">
+
+            {% comment %} Tris Leaderboard {% endcomment %}
             <div class="col-12 col-md-4 mb-4">
                 <div class="card h-100">
                     <div class="card-header">
@@ -19,8 +21,21 @@
                         <ol class="list-group list-group-numbered">
                             {% for user in tris_leaderboard %}
                                 <li class="list-group-item d-flex justify-content-between align-items-center">
-                                    {{ user.username }}
-                                    <span class="badge bg-primary rounded-pill">{{ user.wins }}</span>
+                                    <div>{{ user.username }}</div>
+                                    <div class="d-flex align-items-center">
+                                        {% if request.user.id != user.id %}
+                                            {% if user.id not in liked_users %}
+                                                <a href="/like/{{ user.id }}/" class="btn btn-sm" title="Like">
+                                                    <i class="bi bi-heart"></i>
+                                                </a>
+                                            {% else %}
+                                                <a href="/like/remove/{{ user.id }}/" class="btn btn-sm" title="Unlike">
+                                                    <i class="bi bi-heart-fill"></i>
+                                                </a>
+                                            {% endif %}
+                                        {% endif %}
+                                        <span class="badge bg-primary rounded-pill me-2">{{ user.wins }}</span>
+                                    </div>
                                 </li>
                             {% empty %}
                                 <li class="list-group-item">No players yet</li>
@@ -30,6 +45,7 @@
                 </div>
             </div>
 
+            {% comment %} Guess Leaderboard {% endcomment %}
             <div class="col-12 col-md-4 mb-4">
                 <div class="card h-100">
                     <div class="card-header">
@@ -39,8 +55,21 @@
                         <ol class="list-group list-group-numbered">
                             {% for user in guess_leaderboard %}
                                 <li class="list-group-item d-flex justify-content-between align-items-center">
-                                    {{ user.username }}
-                                    <span class="badge bg-success rounded-pill">{{ user.wins }}</span>
+                                    <div>{{ user.username }}</div>
+                                    <div class="d-flex align-items-center">
+                                        {% if request.user.id != user.id %}
+                                            {% if user.id not in liked_users %}
+                                                <a href="/like/{{ user.id }}/" class="btn btn-sm" title="Like">
+                                                    <i class="bi bi-heart"></i>
+                                                </a>
+                                            {% else %}
+                                                <a href="/like/remove/{{ user.id }}/" class="btn btn-sm" title="Unlike">
+                                                    <i class="bi bi-heart-fill"></i>
+                                                </a>
+                                            {% endif %}
+                                        {% endif %}
+                                        <span class="badge bg-success rounded-pill me-2">{{ user.wins }}</span>
+                                    </div>
                                 </li>
                             {% empty %}
                                 <li class="list-group-item">No players yet</li>
@@ -50,6 +79,7 @@
                 </div>
             </div>
 
+            {% comment %} Hangman Leaderboard {% endcomment %}
             <div class="col-12 col-md-4 mb-4">
                 <div class="card h-100">
                     <div class="card-header">
@@ -59,8 +89,21 @@
                         <ol class="list-group list-group-numbered">
                             {% for user in hangman_leaderboard %}
                                 <li class="list-group-item d-flex justify-content-between align-items-center">
-                                    {{ user.username }}
-                                    <span class="badge bg-warning rounded-pill">{{ user.wins }}</span>
+                                    <div>{{ user.username }}</div>
+                                    <div class="d-flex align-items-center">
+                                        {% if request.user.id != user.id %}
+                                            {% if user.id not in liked_users %}
+                                                <a href="/like/{{ user.id }}/" class="btn btn-sm" title="Like">
+                                                    <i class="bi bi-heart"></i>
+                                                </a>
+                                            {% else %}
+                                                <a href="/like/remove/{{ user.id }}/" class="btn btn-sm" title="Unlike">
+                                                    <i class="bi bi-heart-fill"></i>
+                                                </a>
+                                            {% endif %}
+                                        {% endif %}
+                                        <span class="badge bg-warning rounded-pill me-2">{{ user.wins }}</span>
+                                    </div>
                                 </li>
                             {% empty %}
                                 <li class="list-group-item">No players yet</li>
@@ -69,6 +112,7 @@
                     </div>
                 </div>
             </div>
+
         </div>
     </div>
 {% endblock %}

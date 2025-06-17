@@ -15,3 +15,8 @@ class AddWordForm(forms.ModelForm):
     class Meta:
         model = HangmanWord
         fields = ['text']
+
+class EditWordForm(forms.ModelForm):
+    class Meta:
+        model = HangmanWord
+        fields = ['text']

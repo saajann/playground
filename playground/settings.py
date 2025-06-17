@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'guess',
     'hangman',
     'accounts',
+    'like',
 ]
 
 MIDDLEWARE = [

@@ -6,6 +6,7 @@ from tris.models import TrisGame
 from guess.models import GuessGame
 from hangman.models import HangmanGame
 from django.contrib.auth.models import User
+from like.models import Like
 
 # Create your views here.
 
@@ -34,24 +35,26 @@ def leaderboard(request):
     hangman_leaderboard = []
     for user in users:
         tris_wins = TrisGame.objects.filter(user=user, winner='X').count()
-        tris_leaderboard.append({'username': user.username, 'wins': tris_wins})
+        tris_leaderboard.append({'id': user.id, 'username': user.username, 'wins': tris_wins})
         guess_wins = GuessGame.objects.filter(user=user, is_over=True).count()
-        guess_leaderboard.append({'username': user.username, 'wins': guess_wins})
+        guess_leaderboard.append({'id': user.id, 'username': user.username, 'wins': guess_wins})
         hangman_wins = HangmanGame.objects.filter(user=user, is_over=True, won=True).count()
-        hangman_leaderboard.append({'username': user.username, 'wins': hangman_wins})
+        hangman_leaderboard.append({'id': user.id, 'username': user.username, 'wins': hangman_wins})
 
-    
     tris_leaderboard.sort(key=lambda x: x['wins'], reverse=True)
     guess_leaderboard.sort(key=lambda x: x['wins'], reverse=True)
     hangman_leaderboard.sort(key=lambda x: x['wins'], reverse=True)
-    
+
+    liked_users = Like.objects.filter(from_user=request.user).values_list('to_user_id', flat=True)
+
     template = loader.get_template('leaderboard.html')
     context = {
         'tris_leaderboard': tris_leaderboard,
         'guess_leaderboard': guess_leaderboard,
-        'hangman_leaderboard': hangman_leaderboard
+        'hangman_leaderboard': hangman_leaderboard,
+        'liked_users': list(liked_users)
     }
-    return HttpResponse(template.render(context,request))
+    return HttpResponse(template.render(context, request))
 
 @login_required
 def profile(request):

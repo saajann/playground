@@ -4,7 +4,7 @@ from .models import HangmanGame, HangmanWord
 import random
 from django.template import loader
 from django.http import HttpResponse
-from .forms import LetterForm, AddWordForm
+from .forms import LetterForm, AddWordForm, EditWordForm
 
 # Create your views here.
 
@@ -83,3 +83,15 @@ def delete_word(request, id):
     word = get_object_or_404(HangmanWord, id=id)
     word.delete()
     return redirect('/hangman/words/')
+
+@login_required
+def edit_word(request, id):
+    word = get_object_or_404(HangmanWord, id=id)
+    if request.method == 'POST':
+        form = EditWordForm(request.POST, instance=word)
+        if form.is_valid():
+            form.save()
+            return redirect('/hangman/words/')
+    else:
+        form = EditWordForm(instance=word)
+    return render(request, 'words_edit.html', {'form': form, 'word': word})
