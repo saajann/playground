@@ -33,7 +33,8 @@ def tris_finished(request, id):
     return HttpResponse(template.render(context, request))
 
 def check_winner(board):
-    lines = board + list(zip(*board)) + [
+    columns = [list(col) for col in zip(*board)]
+    lines = board + columns + [
         [board[i][i] for i in range(3)],
         [board[i][2 - i] for i in range(3)]
     ]

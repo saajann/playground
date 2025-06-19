@@ -1,10 +1,6 @@
 {% extends 'base.html' %}
 
-{% block title %}Tris{% endblock %}
-
-{% block header %}
-    {{ block.super }}
-{% endblock %}
+{% block title %}Hangman{% endblock %}
 
 {% block content %}
 <div class="d-flex justify-content-start mb-3 ms-3">
@@ -12,7 +8,7 @@
 </div>
 
 <div class="text-center">
-    <h2 class="mb-3">Hangman - Game #{{ game.id }}</h2>
+    <h2 class="mb-3">Game #{{ game.id }}</h2>
     <p class="fs-4">Word: <span class="fw-bold">{{ display_word }}</span></p>
     <p class="mb-3">Attempts left: <span class="fw-bold">{{ game.remaining_attempts }}</span></p>
 
@@ -44,6 +40,4 @@
 </div>
 {% endblock %}
 
-{% block footer %}
-    {{ block.super }}
-{% endblock %}
+

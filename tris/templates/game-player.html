@@ -2,21 +2,17 @@
 
 {% block title %}Tris{% endblock %}
 
-{% block header %}
-    {{ block.super }}
-{% endblock %}
-
 {% block content %}
     <div class="d-flex justify-content-start mb-3 ms-3">
         <a href="/tris/" class="btn btn-outline-secondary">&larr; Back</a>
     </div>
 
 <div class="text-center">
-    <h2 class="mb-3">Partita #{{ game.id }}</h2>
+    <h2 class="mb-3">Game #{{ game.id }}</h2>
 
     {% if game.is_over %}
         <div class="alert alert-info">
-            Partita terminata. Risultato: <strong>{{ game.winner }}</strong>
+            Game over. Result: <strong>{{ game.winner }}</strong>
         </div>
     {% endif %}
 
@@ -46,12 +42,8 @@
     {% if game.is_over %}
         <form action="{% url 'new_game_player' %}" method="post" class="mt-3">
             {% csrf_token %}
-            <button type="submit" class="btn btn-primary btn-lg">Rigioca</button>
+            <button type="submit" class="btn btn-primary btn-lg">Play again</button>
         </form>
     {% endif %}
 </div>
-{% endblock %}
-
-{% block footer %}
-    {{ block.super }}
 {% endblock %}
