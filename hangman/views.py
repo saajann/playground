@@ -9,7 +9,6 @@ from .forms import LetterForm, AddWordForm, EditWordForm, CSVUploadForm
 import csv
 from io import TextIOWrapper
 from django.contrib import messages
-import re
 
 # Create your views here.
 

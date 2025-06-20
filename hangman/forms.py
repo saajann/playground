@@ -7,7 +7,7 @@ class LetterForm(forms.Form):
     def clean_letter(self):
         letter = self.cleaned_data['letter'].lower()
         if not letter.isalpha():
-            raise forms.ValidationError("Inserisci solo lettere alfabetiche.")
+            raise forms.ValidationError("Insert only letters.")
         return letter
     
 class AddWordForm(forms.ModelForm):
@@ -22,4 +22,4 @@ class EditWordForm(forms.ModelForm):
         fields = ['text']
 
 class CSVUploadForm(forms.Form):
-    file = forms.FileField(label='Uploan CSV file')
+    file = forms.FileField(label='Upload CSV file')
